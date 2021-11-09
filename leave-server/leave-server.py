@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 from discord.ext.commands.errors import GuildNotFound
+import asyncio
 
 class GuildConverter(commands.Converter):
     async def convert(self, ctx: commands.Context, guild_id: str):
@@ -46,8 +47,8 @@ class LeaveGuildPlugin(commands.Cog):
                     return
             else:
                 return await ctx.send("Bot will not leave server {.name} as per your request".format(guild))
-        except TimeoutError:
-            return await ctx.send("OOps timeup bot will not leave the server.")
+        except asyncio.TimeoutError:
+            return await ctx.send("Oops timeup bot will not leave the server.")
 
     @commands.command()
     @commands.is_owner()
