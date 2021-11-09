@@ -43,7 +43,7 @@ class AutoReplyCog(commands.Cog):
   @checks.has_permissions(PermissionLevel.OWNER)
   async def add_auto_reply(self, ctx: commands.Context, regex: str, *, content: str):
     """
-    Add regex if match with the context then bot will send auto response.
+    Add snippet in the database.
     """
     self.auto_replies[str(regex)] = content
     await self._update_db_()
@@ -57,7 +57,10 @@ class AutoReplyCog(commands.Cog):
     List all the snippets available in your bot.
     """
     desc = "**All the snippets available in the bot.**\n\n"
-    desc += ", ".join(map(lambda x: f"`{x}`", self.auto_replies.keys()))
+    if len(self.auto_replies) != 0:
+      desc += ", ".join(map(lambda x: f"`{x}`", self.auto_replies.keys()))
+    else:
+      desc += "No snippet added in database yet."
 
     embed = discord.Embed(colour=discord.Color.blurple(), description=desc)
     return await ctx.reply(embed=embed)
