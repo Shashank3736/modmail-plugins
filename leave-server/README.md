@@ -1,2 +1,2 @@
 # Welcome
-Just an extension of piyush plugin leave-server.
+A better version of leave-server made by piyush.
